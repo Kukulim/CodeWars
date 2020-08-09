@@ -1,0 +1,35 @@
+﻿using System;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main(string[] args)
+        {
+            string input = "Las Vegas";
+            input = input.ToLower();
+            string newString = string.Join("", input.ToCharArray().Distinct());
+
+            Console.WriteLine(newString);
+            string wynik = "";
+            foreach (var item in newString)
+            {
+                if (item != ' ')
+                {
+                    wynik += item + ":";
+                    foreach (var item2 in input)
+                    {
+                        if (item == item2)
+                        {
+                            wynik += "*";
+                        }
+                    }
+                    wynik += ",";
+                }
+            }
+            wynik = wynik.Remove(wynik.Length-1);
+            Console.WriteLine(wynik);
+        }
+    }
+}
