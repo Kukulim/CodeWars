@@ -1,0 +1,38 @@
+﻿using System;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            var test = "1 2 2";
+            var numbers = test.Split(' ').Select(Int32.Parse).ToList();
+            var szukana = test.Split(' ').Select(Int32.Parse).ToList();
+            foreach (var item in numbers)
+            {
+                if (item % 2 == 0)
+                {
+                    szukana.Remove(item);
+                }
+            }
+            if (szukana.Count == 1)
+            {
+                Console.WriteLine(numbers.IndexOf(szukana[0]) + 1);
+            }
+            else
+            {
+                szukana = numbers;
+                foreach (var item in numbers)
+                {
+                    if (item % 2 != 0)
+                    {
+                        szukana.Remove(item);
+                    }
+                }
+                Console.WriteLine(numbers.IndexOf(szukana[0]) + 1);
+            }
+        }
+    }
+}

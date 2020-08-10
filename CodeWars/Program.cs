@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
+using System.Linq;
 
 namespace CodeWars
 {
@@ -9,6 +7,7 @@ namespace CodeWars
     {
         private static void Main()
         {
+
         }
     }
 }
