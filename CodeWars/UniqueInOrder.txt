@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            {
+                //var cos = UniqueInOrder(new List<int> { 1, 2, 2, 1 });
+                var cos = UniqueInOrder("");
+
+                foreach (var item in cos)
+                {
+                    Console.Write(item);
+                }
+            }
+        }
+        public static IEnumerable<T> UniqueInOrder<T>(IEnumerable<T> iterable)
+        {
+            var test = new List<dynamic>();
+            var testdupl = new List<T>();
+
+            foreach (var item in iterable)
+            {
+                test.Add(item);
+            }
+            if (test.Count==0)
+            {
+                return (IEnumerable<T>)testdupl;
+            }
+            testdupl.Add(test[0]);
+
+            for (int i = 1; i < test.Count - 1; i++)
+            {
+                if (test[i] != test[i - 1])
+                {
+                    testdupl.Add(test[i]);
+                }
+            }
+            if (testdupl[testdupl.Count - 1] != test[test.Count - 1])
+            {
+                testdupl.Add(test[test.Count - 1]);
+            }
+            return (IEnumerable<T>)testdupl;
+        }
+    }
+}
