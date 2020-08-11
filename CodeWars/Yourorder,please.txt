@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            const string napis = "4of Fo1r pe6ople g3ood th5e the2";
+            var numberstablica = napis.Split(' ').ToList();
+            var kolejnosc = new List<int>();
+            var wynik = "";
+            foreach (var item in numberstablica)
+            {
+                foreach (var item2 in item)
+                {
+                    if (Char.IsDigit(item2))
+                    {
+                        kolejnosc.Add(int.Parse(item2.ToString()));
+                    }
+                }
+            }
+            for (int i = 0; i < kolejnosc.Count; i++)
+            {
+                wynik+=(numberstablica.Find(c=>c.Contains((i+1).ToString())));
+                if (i< kolejnosc.Count-1)
+                {
+                    wynik += " ";
+                }
+                
+            }
+
+            Console.WriteLine(wynik);
+
+        }
+    }
+}
