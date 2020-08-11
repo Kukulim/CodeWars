@@ -8,7 +8,7 @@ namespace CodeWars
     {
         private static void Main()
         {
-
+            
         }
     }
 }
