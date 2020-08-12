@@ -5,12 +5,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="AlternateCase.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="AlternateCase.txt" />
-  </ItemGroup>
-
 </Project>

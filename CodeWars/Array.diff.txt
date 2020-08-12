@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            int[] a = { 1,2,2, 3,3 };
+            int[] b = { 1,2 };
+
+            var d = ArrayDiff(a, b);
+
+            foreach (var item in d)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+        public static int[] ArrayDiff(int[] a, int[] b)
+        {
+            int[] c = new int[a.Length];
+            a.CopyTo(c,0);
+            return c.Except(b).ToArray();
+        }
+    }
+}
