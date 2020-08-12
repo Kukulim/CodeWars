@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            var test = "aaaaBaCaE";
+            var wynik = "";
+            foreach (var item in test)
+            {
+                if (Char.IsLower(item))
+                {
+                    wynik+= item.ToString().ToUpper();
+                }
+                else
+                {
+                    wynik += item.ToString().ToLower();
+                }
+            }
+            Console.WriteLine(wynik);
+        }
+    }
+}
