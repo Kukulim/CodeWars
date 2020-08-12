@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+         int []arr = {1,2,8,7}; 
+         int res = 1; 
+         Array.Sort(arr); 
+        for (int i = 0; i < arr.Length &&  
+             arr[i] <= res; i++) 
+            res = res + arr[i]; 
+  
+        Console.WriteLine(res);
+        }
+    }
+}
