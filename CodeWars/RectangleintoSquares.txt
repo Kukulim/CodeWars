@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            int lng = 3;
+            int wdth = 5;
+            List<int> result = sqInRect(lng, wdth);
+            if (result!=null)
+            {
+                foreach (var item in result)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+
+
+        }
+        public static List<int> sqInRect(int lng, int wdth)
+        {
+            if (lng==wdth)
+            {
+                return null;
+            }
+            List<int> dimensions = new List<int>();
+            dimensions.Add(lng);
+            dimensions.Add(wdth);
+            List<int> result = new List<int>();
+            while (dimensions[0]!=1 )
+            {
+                if (dimensions[0]==0)
+                {
+                    return result;
+                }
+                dimensions.Sort();
+                dimensions[1] -= dimensions[0];
+                result.Add(dimensions[0]);
+                dimensions.Sort();
+            }
+            for (int i = 0; i < dimensions[1]; i++)
+            {
+                result.Add(dimensions[0]);
+            }
+            return result;
+        }
+    }
+}
