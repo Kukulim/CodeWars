@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            long num = 1874533266012033936;
+            Console.WriteLine(findNb(num));
+        }
+        public static long nfindNb(long m)
+        {
+            long number = m;
+            if (number == 0)
+                return 1;
+            return (long)Math.Pow(number, 3) + nfindNb(number - 1);//Recursive call 
+        }
+        public static double findNb(long m)
+        {
+            long n = 0;
+            int pot = 1;
+            long result = 0;
+            while (result<m)
+            {
+                result += (long)Math.Pow(pot++,3);
+                n++;
+                Console.WriteLine(result);
+                Console.WriteLine(n);
+            }
+            if (result==m)
+            {
+                return n;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
+}
