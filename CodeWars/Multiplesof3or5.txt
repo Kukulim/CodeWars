@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            int number=56;
+            Console.WriteLine(Countnumbers(number));
+        }
+        public static int Countnumbers(int number)
+        {
+            int num = number;
+            int result = 0;
+            for (int i = 1; i < number; i++)
+            {
+                if (i%3==0 || i % 5 == 0)
+                {
+                    result += i;
+                    if (i % 3 == 0 && i % 5 == 0)
+                    {
+                        result -= i;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+}
