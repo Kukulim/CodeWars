@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine(SumIntervals(new (int, int)[] { (-8238, 2021), (-7729, -5181), (-7278, 8239), (-7204, 7150), (-6778, -3545), (-6715, 9599), (-4239, 9507), (-4048, -66), (-4021, 1374), (400, 8120), (2783, 3746), (7603, 8975) }));
+            //17837
+        }
+        public static int SumIntervals((int, int)[] intervals)
+        {
+            var sorterdintervals = intervals.OrderBy(i => i.Item1).ToList();
+            var removed = 0;
+            for (int i = 0; i < sorterdintervals.Count - 1; i++)
+            {
+                if (sorterdintervals[i+1].Item1 >= sorterdintervals[i].Item1 && sorterdintervals[i + 1].Item2 <= sorterdintervals[i].Item2)
+                {
+                    sorterdintervals.Remove((sorterdintervals[i+1].Item1, sorterdintervals[i+1].Item2));
+                    removed++;
+                    i--;
+                }
+            }
+            foreach (var item in sorterdintervals)
+            {
+                Console.WriteLine("(" + item.Item1 + "," + item.Item2 + ")" + ",");
+            }
+            var result = 0;
+            int overleap = 0;
+            for (int i = 0; i < intervals.Length - removed; i++)
+            {
+                var testresult= sorterdintervals[i].Item2 - sorterdintervals[i].Item1;
+                if (testresult<0)
+                {
+                    testresult *= (-1);
+                }
+                result += testresult;
+            }
+            for (int i = 0; i < sorterdintervals.Count - 1; i++)
+            {
+                if (sorterdintervals[i + 1].Item1 < sorterdintervals[i].Item2)
+                {
+                    var testresult = sorterdintervals[i].Item2 - sorterdintervals[i + 1].Item1;
+                    overleap += sorterdintervals[i].Item2 - sorterdintervals[i + 1].Item1;
+                }
+
+            }
+            return result-overleap;
+        }
+    }
+}
