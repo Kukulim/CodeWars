@@ -1,0 +1,47 @@
+﻿using System;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            string test = "JkHAZu]QhfDGAebIpViiwHUCaMoZQIoJeERbMTTVRsuZnJVfFg";
+            Console.WriteLine(Rot13(test));
+        }
+
+        public static string Rot13(string message)
+        {
+            string result = "";
+            foreach (var item in message)
+            {
+                if (Char.IsLetter(item))
+                {
+                    if (Char.IsUpper(item))
+                    {
+                        var buffor = (int)item + 13;
+                        if (buffor > 90)
+                        {
+                            buffor -= 26;
+                        }
+                        result += (char)buffor;
+                    }
+                    if (Char.IsLower(item))
+                    {
+                        var buffor2 = (int)item + 13;
+                        if (buffor2 > 122)
+                        {
+                            buffor2 -= 26;
+                        }
+                        result += (char)buffor2;
+                    }
+                }
+                else
+                {
+                    result += item;
+                }
+            }
+            return result;
+        }
+    }
+}
