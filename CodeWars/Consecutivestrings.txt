@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+
+            Console.WriteLine(LongestConsec(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 3));
+        }
+        public static String LongestConsec(string[] strarr, int k)
+        {
+            string result = "";
+            string resultbuffor = "";
+            var maxlenght = 0;
+            var lenght = 0;
+            for (int i = 0; i < strarr.Length-k+1; i++)
+            {
+                for (int j = 0; j < k; j++)
+                {
+                    lenght += strarr[j + i].Length;
+                    resultbuffor += strarr[j + i];
+                }
+                if (lenght>maxlenght)
+                {
+                    maxlenght = lenght;
+                    result = resultbuffor;
+                }
+                lenght = 0;
+                resultbuffor = "";
+            }
+            return result;
+        }
+    }
+}
