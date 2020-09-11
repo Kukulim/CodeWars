@@ -1,0 +1,27 @@
+﻿using System;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine(Decode(".... . -.--   .--- ..- -.. ."));
+        }
+        public static string Decode(string morseCode)
+        {
+            var result = "";
+            string[] strlist = morseCode.Split("   ");
+            foreach (var item in strlist)
+            {
+                var buffor = item.Split(" ");
+                foreach (var item2 in buffor)
+                {
+                    result += "x";
+                }
+                result += " ";
+            }
+            return result.Trim();
+        }
+    }
+}
