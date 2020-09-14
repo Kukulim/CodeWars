@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine(missing("9899101102"));
+
+            //Console.WriteLine(missing("919293949596979899100102103"));
+        }
+
+        public static long missing(string s)
+        {
+
+            int start = s.Length / 3;
+            if (s.Length > 18)
+            {
+                start = s.Length / 5;
+            }
+            //Console.WriteLine(start);
+            for (int j = start; j >= 1; j--)
+            {
+                var test = long.Parse(s.Substring(0, j));
+                //var c = s.Replace(s.Substring(0, j), "");
+                var c = s;
+                List<long> braki = new List<long>();
+                List<long> wszystko = new List<long>();
+                wszystko.Add(long.Parse((test).ToString()));
+                List<long> wynik = new List<long>();
+                //Console.WriteLine("c: "+ c);
+                //Console.WriteLine("test: " + test);
+                int count = 1;
+                for (int i = 1; i < s.Length+1; i++)
+                {
+                    Console.WriteLine("szuka: "+ (test + i).ToString());
+                    if (c.Contains((test+i).ToString()))
+                    {
+                        count++;
+                        wszystko.Add(long.Parse((test + i).ToString()));
+                    }
+                    else
+                    {
+                        braki.Add(long.Parse((test + i).ToString()));
+                        if (braki.Count==3)
+                        {
+                            break;
+                        }
+                    }
+                }
+                //Console.WriteLine("wszystko: ");
+                //foreach (var item in wszystko)
+                //{
+                //    Console.WriteLine(item);
+                //}
+                //Console.WriteLine("braki: ");
+                //foreach (var item in braki)
+                //{
+                //    Console.WriteLine(item);
+                //}
+                if (count >= 3)
+                {
+                    foreach (var item in braki)
+                    {
+                        if(item>wszystko[0] && item<wszystko[wszystko.Count()-1])
+                        {
+                            wynik.Add(item);
+                        }
+                    }
+                    //foreach (var item in wynik)
+                    //{
+                    //    Console.WriteLine("z wynik " + item);
+                    //}
+                    return wynik.Count == 1 ? wynik[0] : -1;
+                }
+                count = 0;
+            }
+            return -1;
+        }
+    }
+}
