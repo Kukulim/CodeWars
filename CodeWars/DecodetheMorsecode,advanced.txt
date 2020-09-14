@@ -1,0 +1,168 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine(Decode("111000000000111"));
+            //Console.WriteLine(Decode("11111100111111"));
+            //Console.WriteLine(morseCode);
+        }
+        public static string Decode(string morseCode)
+        {
+            float max = 0;
+            morseCode = morseCode.Trim('0');
+            for (int i = 0; i < morseCode.Length; i++)
+            {
+                var count = 0;
+                for (int j = 0; j < morseCode.Length - i; j++)
+                {
+                    if (morseCode[i + j] == '0')
+                    {
+                        count++;
+                    }
+                    if (morseCode[i + j] == '1')
+                    {
+                        break;
+                    }
+                }
+                if (count > max)
+                {
+                    max = count;
+                }
+
+            }
+
+            string Dot = "1";
+            string Dash = "111";
+            string PauseBetweenDotsAndDashes = "0";
+            string PauseBetweenCharacters = "000";
+            string PauseBetweenWords = "000000";
+            string RDot = "";
+            string RDash = "";
+            string RPauseBetweenDotsAndDashes = "";
+            string RPauseBetweenCharacters = "";
+            string RPauseBetweenWords = "";
+
+            if (max / 7 < 1)
+            {
+                var test = morseCode.Split("0");
+                List<string> min = new List<string>();
+                List<string> minTwo = new List<string>();
+                foreach (var item in test)
+                {
+                    if (item.Contains("1"))
+                    {
+                        min.Add(item);
+                    }
+                }
+                var min1 = min.OrderBy(n => n.Length).First().Count();
+                if (morseCode.Contains("0"))
+                {
+                    var test2 = morseCode.Split("1");
+                    foreach (var item in test2)
+                    {
+                        if (item.Contains("0"))
+                        {
+                            minTwo.Add(item);
+                        }
+                    }
+                    var min0 = minTwo.OrderBy(n => n.Length).First().Count();
+
+                    if (min1 == 3 && min0 == 1)
+                    {
+                        RDot = "1";
+                        RDash = "111";
+                        RPauseBetweenDotsAndDashes = "0";
+                        RPauseBetweenCharacters = "000";
+                        return morseCode.Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "").Trim();
+                    }
+                    if (min1 == 6 && min0 == 2)
+                    {
+                        RDot = "11";
+                        RDash = "111111";
+                        RPauseBetweenDotsAndDashes = "00";
+                        RPauseBetweenCharacters = "000000";
+                        return morseCode.Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "").Trim();
+                    }
+                    if (min1 == min0)
+                    {
+                        for (int i = 0; i < min0; i++)
+                        {
+                            RDot += Dot;
+                            RDash += Dash;
+                            RPauseBetweenDotsAndDashes += PauseBetweenDotsAndDashes;
+                            RPauseBetweenWords += PauseBetweenWords;
+                            RPauseBetweenCharacters += PauseBetweenCharacters;
+                        }
+                        return morseCode.Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "").Trim();
+                    }
+
+                }
+                if (morseCode.Contains("0") == false)
+                {
+                    return ".";
+                }
+                if (min1 < 3)
+                {
+                    for (int i = 0; i < min1; i++)
+                    {
+                        RDot += Dot;
+                        RDash += Dash;
+                        RPauseBetweenDotsAndDashes += PauseBetweenDotsAndDashes;
+                        RPauseBetweenWords += PauseBetweenWords;
+                        RPauseBetweenCharacters += PauseBetweenCharacters;
+                    }
+                    return morseCode.Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "").Trim();
+                }
+
+                //morseCode = " " + morseCode + " ";
+                RDot = " 1 ";
+                RDash = "111";
+                //var ThreePoints = " 111 ";
+                RPauseBetweenDotsAndDashes = PauseBetweenDotsAndDashes;
+                RPauseBetweenCharacters = PauseBetweenCharacters;
+                return morseCode.Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "").Trim();
+            }
+            if (max / 7 == 1)
+            {
+                for (int i = 0; i < (max / 7); i++)
+                {
+                    RDot += Dot;
+                    RDash += Dash;
+                    RPauseBetweenDotsAndDashes += PauseBetweenDotsAndDashes;
+                    RPauseBetweenWords += PauseBetweenWords;
+                    RPauseBetweenCharacters += PauseBetweenCharacters;
+                }
+                return morseCode.Replace(RPauseBetweenWords, "   ").Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "");
+            }
+            if (max/7>1)
+            {
+                var max0 = morseCode.Trim('1').Length;
+                if (max0==9)
+                {
+                    RDot = "111";
+                    RDash = "111111111";
+                    RPauseBetweenDotsAndDashes = "000";
+                    RPauseBetweenCharacters = "000000000";
+                    return morseCode.Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "").Trim();
+                }
+                for (int i = 0; i < (max / 7); i++)
+                {
+                    RDot += Dot;
+                    RDash += Dash;
+                    RPauseBetweenDotsAndDashes += PauseBetweenDotsAndDashes;
+                    RPauseBetweenWords += PauseBetweenWords;
+                    RPauseBetweenCharacters += PauseBetweenCharacters;
+                }
+                return morseCode.Replace(RPauseBetweenWords, "   ").Replace(RPauseBetweenCharacters, " ").Replace(RDash, "-").Replace(RDot, ".").Replace(RPauseBetweenDotsAndDashes, "");
+            }
+            return "-1";
+        }
+    }
+}
