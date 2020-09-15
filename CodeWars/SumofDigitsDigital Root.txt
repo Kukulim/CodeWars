@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine(DigitalRoot(493193));
+        }
+        public static int DigitalRoot(long n)
+        {
+            var stringn = n.ToString();
+            int buffor = 0;
+            while (stringn.Length != 1)
+            {
+                foreach (var item in stringn)
+                {
+                    buffor += int.Parse(item.ToString());
+                }
+                if (buffor < 10)
+                {
+                    return buffor;
+                }
+                stringn = buffor.ToString();
+                buffor = 0;
+            }
+            return 0;
+        }
+    }
+}
