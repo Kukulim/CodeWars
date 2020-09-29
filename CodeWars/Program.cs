@@ -10,13 +10,7 @@ namespace CodeWars
         private static void Main()
         {
             //Console.WriteLine();
-            Console.WriteLine(Add("151", "1514"));
-
-
+            Console.WriteLine();
         }
-        public static string Add(string a,string b)
-        {
-            return new string("t");
-        }       
     }
 }

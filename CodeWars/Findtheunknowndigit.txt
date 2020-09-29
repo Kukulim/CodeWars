@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            //Console.WriteLine();
+            Console.WriteLine(solveExpression("-7715?5--484?00=-28?9?5"));
+
+
+        }
+        public static int solveExpression(string expression)
+        {
+            int missingDigit = -1;
+            var exp = expression;
+            int q = 0;
+            if (exp.Contains("??"))
+            {
+                q = 1;
+            }
+            if (exp.Contains("--"))
+            {
+                exp=exp.Replace("--", "+");
+            }
+            Console.WriteLine(exp);
+            for ( int i = q ; i < 10; i++)
+            {
+                if (!exp.Contains(i.ToString()[0]))
+                {
+                    Console.WriteLine("tst");
+                    var buffor = "";
+                    buffor = exp.Replace('?', i.ToString()[0]);
+                    var result = buffor.Substring(exp.IndexOf('=') + 1);
+                    buffor = buffor.Remove(exp.IndexOf('='));
+
+                    if (Oblicz(buffor) == int.Parse(result))
+                    {
+                        return i;
+                    }
+                    Console.WriteLine("i: " + i);
+                    Console.WriteLine("wynik: " + Oblicz(buffor));
+                    Console.WriteLine("dzialanie: " + buffor);
+                }
+            }
+
+
+            return missingDigit;
+        }
+        public static int Oblicz(string expression)
+        {
+            if (expression.Contains('*'))
+            {
+                return int.Parse(expression.Substring(expression.IndexOf('*') + 1)) * int.Parse(expression.Remove(expression.IndexOf('*')));
+            }
+            if (expression.Contains('+'))
+            {
+                return int.Parse(expression.Substring(expression.IndexOf('+') + 1)) + int.Parse(expression.Remove(expression.IndexOf('+')));
+            }
+            if (expression.Contains('-'))
+            {
+                return int.Parse(expression.Remove(expression.IndexOf('-'))) -  int.Parse(expression.Substring(expression.IndexOf('-') + 1)) ;
+            }
+            return 0;
+        }
+    }
+}
