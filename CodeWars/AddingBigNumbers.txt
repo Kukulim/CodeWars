@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            //Console.WriteLine();
+            Console.WriteLine(Add("151", "1514"));
+            //Console.WriteLine(Add("823094582094385190384102934810293481029348123094818923749817", "234758927345982475298347523984572983472398457293847594193837"));
+
+        }
+        public static string Add(string a,string b)
+        {
+            var maxlenght = Math.Max(a.Length, b.Length);
+            var newa =a.PadLeft(maxlenght+1, '0');
+            var newb = b.PadLeft(maxlenght+1, '0');
+            string result = "";
+            bool OneInMind = false;
+            for (int i = newb.Length - 1; i >= 0; i--)
+            {
+                int One;
+                if (OneInMind)
+                {
+                    One = 1;
+                }
+                else
+                {
+                    One = 0;
+                }
+                var buffor = "";
+                buffor += (int.Parse(newb[i].ToString()) + int.Parse(newa[i].ToString())+One).ToString();
+                if (buffor.Length == 2)
+                {
+                    buffor = buffor.Remove(0, 1);
+                    OneInMind = true;
+                }
+                else
+                {
+                    OneInMind = false;
+                }
+                result += buffor;
+            }
+            result = result.TrimEnd('0');
+
+            char[] CharResult = result.ToCharArray();
+            Array.Reverse(CharResult);
+
+            return new string(CharResult);
+        }       
+    }
+}
