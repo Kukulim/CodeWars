@@ -9,7 +9,7 @@ namespace CodeWars
     {
         private static void Main()
         {
-            //Console.WriteLine();
+
             Console.WriteLine();
         }
     }
