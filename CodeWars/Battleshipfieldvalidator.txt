@@ -1,0 +1,115 @@
+﻿namespace Solution {
+  using System;
+  public class BattleshipField {
+
+            public static bool ValidateBattlefield(int[,] field)
+        {
+            var newtable = FillTable(field);
+
+            if (!CheckCornersAndShipPools(newtable))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public static int[,] FillTable(int[,] field)
+        {
+            var newtable = new int[12, 12];
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    newtable[i, j] = 0;
+                }
+            }
+            for (int i = 1; i < 10; i++)
+            {
+                for (int j = 1; j < 10; j++)
+                {
+                    newtable[i, j] = field[i - 1, j - 1];
+                }
+            }
+            return newtable;
+        }
+        public static bool CheckCornersAndShipPools(int[,] field)
+        {
+            int ShipPoolsCount = 0;
+            int PoolsWithTwoBorders = 4;
+            int PoolsWithOneBorder = 12;
+            int PoolsWithoutBorder = 4;
+
+            for (int i = 1; i < 10; i++)
+            {
+                for (int j = 1; j < 10; j++)
+                {
+                    if (field[i,j]==1)
+                    {
+                        ShipPoolsCount++;
+                        if (field[i - 1, j + 1] == 1 || field[i + 1, j + 1] == 1 || field[i + 1, j - 1] == 1 || field[i - 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                        var buffor = 0;
+
+                        if (field[i - 1, j + 1] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i + 1, j + 1] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i - 1, j - 1] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i + 1, j - 1] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i, j + 1] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i, j - 1] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i - 1, j] == 1)
+                        {
+                            buffor++;
+                        }
+                        if (field[i + 1, j] == 1)
+                        {
+                            buffor++;
+                        }
+
+                        if (buffor==2)
+                        {
+                            PoolsWithTwoBorders--;
+                        }
+                        else if (buffor == 1)
+                        {
+                            PoolsWithOneBorder--;
+                        }
+                        else if (buffor == 0)
+                        {
+                            PoolsWithoutBorder--;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            if (ShipPoolsCount!=20 || PoolsWithTwoBorders != 0 || PoolsWithOneBorder != 0 || PoolsWithoutBorder != 0)
+            {
+                return false;
+            }
+            return true;
+        }
+  }
+}
