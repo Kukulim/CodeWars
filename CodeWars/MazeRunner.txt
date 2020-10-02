@@ -1,0 +1,107 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Drawing;
+using System.Linq;
+
+namespace CodeWars
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+             int[,] maze = new int[,] {{ 1, 1, 1, 1, 1, 1, 1 },
+                                       { 1, 0, 0, 0, 0, 0, 3 },
+                                       { 1, 0, 1, 0, 1, 0, 1 },
+                                       { 0, 0, 1, 0, 0, 0, 1 },
+                                       { 1, 0, 1, 0, 1, 0, 1 },
+                                       { 1, 0, 0, 0, 0, 0, 1 },
+                                       { 1, 2, 1, 0, 1, 0, 1 } };
+
+            string[] directions = new string[] { "N", "N", "N", "N", "N", "E", "E" };
+
+            Console.WriteLine(mazeRunner(maze, directions));
+        }
+        public static string mazeRunner(int[,] maze, string[] directions)
+        {
+            var GraczX = FindIndex(maze,2)[1];
+            var GraczY = FindIndex(maze, 2)[0];
+            foreach (var item in directions)
+            {
+                string nacisinietyKlawisz = item;
+                if (nacisinietyKlawisz == "E")
+                {
+                    GraczX += 1;
+                    if (GraczX < 0)
+                    {
+                        return "Dead";
+                    }
+                }
+                if (nacisinietyKlawisz == "W")
+                {
+                    GraczX -= 1;
+                    if (GraczX > maze.GetLength(0))
+                    {
+                        return "Dead";
+                    }
+                }
+                if (nacisinietyKlawisz == "S")
+                {
+                    GraczY += 1;
+                    if (GraczY > maze.GetLength(0))
+                    {
+                        return "Dead";
+                    }
+                }
+                if (nacisinietyKlawisz == "N")
+                {
+                    GraczY -= 1;
+                    if (GraczY < 0)
+                    {
+                        return "Dead";
+                    }
+                }
+                if (maze[GraczY, GraczX] == 1)
+                {
+                    return "Dead";
+                }
+                if (maze[GraczY, GraczX] == 3)
+                {
+                    return "Finish";
+                }
+            }
+            return "Lost";
+        }
+
+            public static int[] FindIndex(this Array haystack, object needle)
+            {
+                if (haystack.Rank == 1)
+                    return new[] { Array.IndexOf(haystack, needle) };
+
+                var found = haystack.OfType<object>()
+                                  .Select((v, i) => new { v, i })
+                                  .FirstOrDefault(s => s.v.Equals(needle));
+                if (found == null)
+                    throw new Exception("needle not found in set");
+
+                var indexes = new int[haystack.Rank];
+                var last = found.i;
+                var lastLength = Enumerable.Range(0, haystack.Rank)
+                                           .Aggregate(1,
+                                               (a, v) => a * haystack.GetLength(v));
+                for (var rank = 0; rank < haystack.Rank; rank++)
+                {
+                    lastLength = lastLength / haystack.GetLength(rank);
+                    var value = last / lastLength;
+                    last -= value * lastLength;
+
+                    var index = value + haystack.GetLowerBound(rank);
+                    if (index > haystack.GetUpperBound(rank))
+                        throw new IndexOutOfRangeException();
+                    indexes[rank] = index;
+                }
+
+                return indexes;
+            }
+        }
+    }
